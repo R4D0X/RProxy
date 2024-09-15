@@ -9,7 +9,7 @@ _RProxy_ is a proxy scraping tool. It allows you to collect the most up-to-date 
 
 ## Download & Usage
 ```sh
-https://github.com/R4D0X/RProxy
+git clone https://github.com/R4D0X/RProxy
 cd RProxy
 chmod +x installer.py
 python3 installer.py
