@@ -9,17 +9,17 @@ init(autoreset=True)
 def install_dependencies():
     try:
         print(f"{Fore.LIGHTCYAN_EX}------------------------------------------------")
-        print(f"{Fore.CYAN}[{Fore.YELLOW}-{Fore.CYAN}]{Fore.WHITE} Gerekli paketler yükleniyor...")
+        print(f"{Fore.CYAN}[{Fore.YELLOW}-{Fore.CYAN}]{Fore.WHITE} Installing required packages...")
         print(f"{Fore.LIGHTCYAN_EX}------------------------------------------------")
         subprocess.run([get_pip_command(), 'install', '--upgrade', 
                         'requests', 'colorama', 'proxy_checker', 'tqdm', 
                         'tabulate', '--break-system-packages'], check=True)
         print(f"{Fore.LIGHTCYAN_EX}------------------------------------------------")
-        print(f"{Fore.CYAN}[{Fore.GREEN}+{Fore.CYAN}]{Style.RESET_ALL} Paketler başarıyla yüklendi.")
+        print(f"{Fore.CYAN}[{Fore.GREEN}+{Fore.CYAN}]{Style.RESET_ALL} Packages installed successfully.")
         print(f"{Fore.LIGHTCYAN_EX}------------------------------------------------")
     except subprocess.CalledProcessError as e:
         print(f"{Fore.LIGHTCYAN_EX}------------------------------------------------")
-        print(f"{Fore.CYAN}[{Fore.RED}x{Fore.CYAN}]{Fore.WHITE} Paketler yüklenirken hata oluştu: {e}")
+        print(f"{Fore.CYAN}[{Fore.RED}x{Fore.CYAN}]{Fore.WHITE} An error occurred while installing packages: {e}")
         print(f"{Fore.LIGHTCYAN_EX}------------------------------------------------")
 
 def get_pip_command():
@@ -44,7 +44,7 @@ def main():
     print(f"{Fore.LIGHTYELLOW_EX}{Style.BRIGHT} RProxy Installer")
 
     if os.name != 'nt' and hasattr(os, 'geteuid') and os.geteuid() == 0:
-        print(f"{Fore.CYAN}[{Fore.RED}x{Fore.CYAN}]{Style.RESET_ALL} HATA, PROGRAMI YÖNETİCİ OLARAK ÇALIŞTIRMALISINIZ.")
+        print(f"{Fore.CYAN}[{Fore.RED}x{Fore.CYAN}]{Style.RESET_ALL} ERROR, YOU MUST RUN THE PROGRAM AS AN ADMINISTRATOR.")
         return
 
     install_dependencies()
