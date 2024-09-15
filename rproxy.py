@@ -20,9 +20,9 @@ class UI:
                             █▄▄▀ █▄▄█ █░░█ █░░█ ▄▀▄
                             ▀░▀▀ ▀░░▀ ▀▀▀░ ▀▀▀▀ ▀░▀     {Fore.CYAN}https://t.me/radoxin
            
-           {Fore.RED}[{Fore.YELLOW}1{Fore.RED}]{Style.RESET_ALL} HTTP Proxy Topla    {Fore.RED}[{Fore.YELLOW}2{Fore.RED}]{Style.RESET_ALL} SOCKS4-SOCKS5 Proxy Topla  
+           {Fore.RED}[{Fore.YELLOW}1{Fore.RED}]{Style.RESET_ALL} Collect HTTP Proxy    {Fore.RED}[{Fore.YELLOW}2{Fore.RED}]{Style.RESET_ALL} SOCKS4-SOCKS5 Collect Proxy  
             
-                            {Fore.RED}[{Fore.YELLOW}3{Fore.RED}]{Style.RESET_ALL} Proxy Listesi Kontrol Et 
+                            {Fore.RED}[{Fore.YELLOW}3{Fore.RED}]{Style.RESET_ALL} Check Proxies
         '''
         return menu
 mdb = 'D'
@@ -41,7 +41,7 @@ class ProxyChecker:
             response = requests.get('http://httpbin.org/ip', proxies=proxies, timeout=1)  
             return response.status_code == 200
         except requests.RequestException as e:
-            write(f'{Fore.RED}[-] {Style.RESET_ALL}Proxy kontrol hatası: {e}')
+            write(f'{Fore.RED}[-] {Style.RESET_ALL}Proxy check error: {e}')
             return False
 xer = f'{Fore.RED}Made By'
 x = f'{Fore.MAGENTA}'
@@ -125,72 +125,72 @@ class XProxy:
         proxylist = []
         for url, regex in XProxy.proxy_w_regex:
             try:
-                write(f'{Fore.RED}[*] {Style.RESET_ALL}Proxies alınıyor: {Fore.YELLOW}{url}{Style.RESET_ALL}')
+                write(f'{Fore.RED}[*] {Style.RESET_ALL}Getting proxies: {Fore.YELLOW}{url}{Style.RESET_ALL}')
                 html = requests.get(url).text
                 iplist = re.findall(r'' + regex.replace('%ip%', '([0-9]{1,3}(?:\.[0-9]{1,3}){3})').replace('%port%', '([0-9]{2,5})') + '', str(html))
                 for (ip, port) in iplist:
                     proxy = f'{ip}:{port}'
                     if proxy not in proxylist:
-                        write(f'{Fore.RED}[+] {Style.RESET_ALL}Bulunan proxy: {Fore.GREEN}{proxy}{Style.RESET_ALL}')
+                        write(f'{Fore.RED}[+] {Style.RESET_ALL}Found proxy: {Fore.GREEN}{proxy}{Style.RESET_ALL}')
                         proxylist.append(proxy)
                         self.scrape_counter += 1
             except Exception as e:
-                write(f'{Fore.RED}[-] {Style.RESET_ALL}Hata: {e}')
+                write(f'{Fore.RED}[-] {Style.RESET_ALL}Error: {e}')
 
         with open("proxies.txt", "a") as file:
             for proxy in proxylist:
                 file.write(f"{proxy}\n")
 
         elapsed = time.time() - start
-        set_title(f'Proxy - geçen süre: {elapsed:.2f} saniye | toplanan: {self.scrape_counter} proxy')
-        write(f'{Fore.RED}[*] {Style.RESET_ALL}Proxies proxies.txt dosyasına kaydedildi.')
+        set_title(f'Proxy - elapsed time: {elapsed:.2f} second | second collected: {self.scrape_counter} proxy')
+        write(f'{Fore.RED}[*] {Style.RESET_ALL}Proxies are saved in {Fore.YELLOW}proxies.txt {Style.RESET_ALL}file.')
     
     def socks_proxy_scrape(self):
         start = time.time()
         proxylist = []
         for url, regex in XProxy.socks_proxy_list:
             try:
-                write(f'{Fore.RED}[*] {Style.RESET_ALL}Proxies alınıyor: {Fore.YELLOW}{url}{Style.RESET_ALL}')
+                write(f'{Fore.RED}[*] {Style.RESET_ALL}Getting proxies: {Fore.YELLOW}{url}{Style.RESET_ALL}')
                 html = requests.get(url).text
                 iplist = re.findall(r'' + regex.replace('%ip%', '([0-9]{1,3}(?:\.[0-9]{1,3}){3})').replace('%port%', '([0-9]{2,5})') + '', str(html))
                 for (ip, port) in iplist:
                     proxy = f'{ip}:{port}'
                     if proxy not in proxylist:
-                        write(f'{Fore.RED}[+] {Style.RESET_ALL}Bulunan proxy: {Fore.GREEN}{proxy}{Style.RESET_ALL}')
+                        write(f'{Fore.RED}[+] {Style.RESET_ALL}Found proxy: {Fore.GREEN}{proxy}{Style.RESET_ALL}')
                         proxylist.append(proxy)
                         self.scrape_counter += 1
             except Exception as e:
-                write(f'{Fore.RED}[-] {Style.RESET_ALL}Hata: {e}')
+                write(f'{Fore.RED}[-] {Style.RESET_ALL}Error: {e}')
 
         for url in XProxy.proxy_direct:
             try:
-                write(f'{Fore.RED}[*] {Style.RESET_ALL}Proxies alınıyor: {Fore.YELLOW}{url}{Style.RESET_ALL}')
+                write(f'{Fore.RED}[*] {Style.RESET_ALL}Getting proxies: {Fore.YELLOW}{url}{Style.RESET_ALL}')
                 proxies = requests.get(url).text.split()
                 for proxy in proxies:
                     if proxy not in proxylist:
-                        write(f'{Fore.RED}[+] {Style.RESET_ALL}Bulunan proxy: {Fore.GREEN}{proxy}{Style.RESET_ALL}')
+                        write(f'{Fore.RED}[+] {Style.RESET_ALL}Found proxy: {Fore.GREEN}{proxy}{Style.RESET_ALL}')
                         proxylist.append(proxy)
                         self.scrape_counter += 1
             except Exception as e:
-                write(f'{Fore.RED}[-] {Style.RESET_ALL}Hata: {e}')
+                write(f'{Fore.RED}[-] {Style.RESET_ALL}Error: {e}')
 
-        with open("socks_proxies.txt", "a") as file:
+        with open("socks_proxy.txt", "a") as file:
             for proxy in proxylist:
                 file.write(f"{proxy}\n")
 
         elapsed = time.time() - start
-        set_title(f'Proxy - geçen süre: {elapsed:.2f} saniye | toplanan: {self.scrape_counter} proxy')
-        write(f'{Fore.RED}[*] {Style.RESET_ALL}Proxies socks_proxies.txt dosyasına kaydedildi.')
+        set_title(f'Proxy - elapsed time: {elapsed:.2f} second | second collected: {self.scrape_counter} proxy')
+        write(f'{Fore.RED}[*] {Style.RESET_ALL}Proxies are saved in the {Fore.YELLOW}socks_proxy.txt {Style.RESET_ALL}file.')
     def proxy_check(self):
         checker = ProxyChecker()
         proxylist = []
         retries = 2
         while True:
-            path = input(f'{Fore.YELLOW}[+] {Style.RESET_ALL}Proxy liste yolu girin: ').strip('"')
+            path = input(f'{Fore.YELLOW}[+] {Style.RESET_ALL}Enter proxy list path: ').strip('"')
             if os.path.isfile(path):
                 break
             else:
-                print(f"{Fore.MAGENTA}[-] {Fore.RED}Dosya yanlış, lütfen geçerli bir dosya yolu girin.{Style.RESET_ALL}")
+                print(f"{Fore.MAGENTA}[-] {Fore.RED}The file is incorrect, please enter a valid file path.{Style.RESET_ALL}")
 
         with open(path, 'r') as file:
             proxylist = file.readlines()
@@ -203,17 +203,17 @@ class XProxy:
             while attempt < retries:
                 try:
                     if checker.check_proxy(proxy):
-                        write(f'{Fore.RED}[+] {Style.RESET_ALL}Geçerli proxy: {Fore.GREEN}{proxy}{Style.RESET_ALL}')
+                        write(f'{Fore.RED}[+] {Style.RESET_ALL}Valid proxy: {Fore.GREEN}{proxy}{Style.RESET_ALL}')
                         valid_proxies.append(proxy)
                         return
                     else:
-                        write(f'{Fore.RED}[-] {Style.RESET_ALL}Geçersiz proxy: {Fore.YELLOW}{proxy}{Style.RESET_ALL}')
+                        write(f'{Fore.RED}[-] {Style.RESET_ALL}Invalid proxy: {Fore.YELLOW}{proxy}{Style.RESET_ALL}')
                         return
                 except Exception as e:
                     attempt += 1
-                    write(f'{Fore.RED}[-] {Style.RESET_ALL}Proxy kontrolü hatası {proxy} (Deneme {attempt}/{retries}): {e}')
+                    write(f'{Fore.RED}[-] {Style.RESET_ALL}Proxy check error {proxy} (Attempt {attempt}/{retries}): {e}')
                     if attempt >= retries:
-                        write(f'{Fore.RED}[-] {Style.RESET_ALL}Proxy {proxy} için {retries} deneme sonrası hata oluştu.')
+                        write(f'{Fore.RED}[-] {Style.RESET_ALL}An error occurred after trying {retries} for the {proxy} proxy.')
 
         with ThreadPoolExecutor(max_workers=5) as executor:
             futures = [executor.submit(check_proxy, proxy.strip()) for proxy in proxylist]
@@ -226,7 +226,7 @@ class XProxy:
                 valid_file.write(f"{proxy}\n")
 
         elapsed = time.time() - start
-        write(f'{Fore.RED}[*] {Style.RESET_ALL}Geçerli proxyler valid_proxies.txt dosyasına kaydedildi. Geçen süre: {elapsed:.2f} saniye | Kontrol edilen: {len(proxylist)} proxy')
+        write(f'{Fore.RED}[*] {Style.RESET_ALL}Valid proxies are saved in the valid_proxies.txt file. Elapsed time: {elapsed:.2f} second | Checked: {len(proxylist)} proxy')
 mdwth,watt = 'R','X', 
 def clear_screen():
     os.system('cls' if platform.system() == "Windows" else 'clear')
@@ -242,7 +242,7 @@ def pause():
     if platform.system() == "Windows":
         os.system('pause>nul')
     else:
-        input("Devam etmek için Enter'a basın...")
+        input("Press Enter to continue...")
 
 def main():
         init()
@@ -257,7 +257,7 @@ def main():
         while True:
             print(UI.menu())
             try:
-                option = int(input(f'{Fore.YELLOW}[+] {Style.RESET_ALL}Bir seçenek girin: '))
+                option = int(input(f'{Fore.YELLOW}[+] {Style.RESET_ALL}Enter an option: '))
                 if option == 1:
                     xproxy.proxy_scrape()
                     break
@@ -268,9 +268,9 @@ def main():
                     xproxy.proxy_check()
                     break
                 else:
-                    write(f'{Fore.RED}[-] {Style.RESET_ALL}Geçersiz seçenek.')
+                    write(f'{Fore.RED}[-] {Style.RESET_ALL}Invalid option.')
             except ValueError:
-                write(f'{Fore.RED}[-] {Style.RESET_ALL}Lütfen geçerli bir sayı girin.')
+                write(f'{Fore.RED}[-] {Style.RESET_ALL}Please enter a valid number.')
 
 if __name__ == "__main__":
     main()
