@@ -4,6 +4,7 @@ _RProxy_ is a proxy scraping tool. It allows you to collect the most up-to-date 
 ![N|Radox](https://i.hizliresim.com/sbzh02g.png)
 
 ## Screenshots
+![N|Radox](https://i.hizliresim.com/hab3iee.jpg)
 
 
 ## Download & Usage
