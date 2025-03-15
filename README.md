@@ -1,12 +1,6 @@
 # RProxy
 _RProxy_ is a proxy scraping tool. It allows you to collect the most up-to-date ones from free proxy sites and combine them into one file.
 
-![N|Radox](https://i.hizliresim.com/sbzh02g.png)
-
-## Screenshots
-![N|Radox](https://i.hizliresim.com/mwur47j.png)
-
-
 ## Download & Usage
 ```sh
 git clone https://github.com/R4D0X/RProxy
